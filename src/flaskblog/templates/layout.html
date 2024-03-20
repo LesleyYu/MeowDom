@@ -8,7 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <!-- static CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}"> 
+          <!-- `url_for` is a function that will find the exact location of routes for us. It is import in .py -->
 
     {% if title %}
         <title>MEOWDOM - {{ title }}</title>
@@ -56,7 +58,9 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
-          {% block content %}{% endblock %}
+
+          {% block content %}<!-- here is the main content of different route -->{% endblock %}
+
         </div>
         <div class="col-md-4">
           <div class="content-section">
