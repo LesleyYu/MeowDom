@@ -1,6 +1,6 @@
 import os
 import secrets
-from PIL import Image
+# from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 # from flaskblog import app, db, bcrypt, find_db, session0, session1
 from flaskblog import app, db, find_db, session0, session1
