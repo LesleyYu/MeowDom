@@ -5,14 +5,8 @@ import {useEffect, useState} from "react";
 
 
 const PostNow = () => {
-  // const [params] = useSearchParams()
-  // const id = params.get('id')
-  // const name = params.get('name')
 
-  // const params = useParams()
-  // const id = params.id
-  // const name = params.name
-
+    const [posts, setPosts] = useState([{}])
     const [categories, setCategories] = useState([])
 
     // const categories = ["Laptop", "Phone", "Clothes", "Jewelry", "Sports", "other"]
