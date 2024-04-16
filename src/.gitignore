@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 /__pycache__/
-/flaskblog/__pycache__
+/server/__pycache__
 
 # data genereated by mac 
 **/.DS_Store
