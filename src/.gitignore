@@ -4,3 +4,8 @@
 
 # data genereated by mac 
 **/.DS_Store
+
+# flask enrironment
+**/venv
+
+**/.idea

@@ -25,10 +25,33 @@ def home():
         join(Item, User.username == Item.username).all()
 
     posts = posts0 + posts1
+    postList = [0] * len(posts)
 
-    print(posts[0])
+    for i, post in enumerate(posts):
+        # print("\n\n post: \n", post)
+        jsonObj = {
+            "username": post[0],
+            "userPhone": post[1],
+            "userEmail": post[2],
+            "userCity": post[3],
+            "userState": post[4],
+            "title": post[5],
+            "content": post[6],
+            "post_date": post[7],
+            "category": post[8],
+            "itemName": post[9],
+            "itemBrand": post[10],
+            "itemCondition": post[11],
+            "original_price": post[12],
+            "selling_price": post[13],
+            "post_id": post[14]
+        }
+        # print("\n\njsonObj: \n", jsonObj)
+        postList[i] = jsonObj
+        result = {'posts': postList}
 
-    return render_template('home.html', posts=posts)
+    return result
+#     render_template('home.html', posts=posts)
 
 
 @app.route("/about")
@@ -64,4 +87,5 @@ def postNow():
         cur_session.commit()
         flash('You have successfully become a Meowdom member today!', 'success')
         return redirect(url_for('home'))
-    return render_template('postNow.html', title='Post', form=form)
+    return
+#     render_template('postNow.html', title='Post', form=form)

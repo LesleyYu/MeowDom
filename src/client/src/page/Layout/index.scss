@@ -1,0 +1,99 @@
+
+.offsety {
+  position: relative;
+  top: 400px;
+}
+
+
+.ant-layout {
+  height: 100%;
+}
+
+.header {
+  padding: 0;
+  background-color: #5f788a;
+}
+
+//.logo {
+//  width: 100px;
+//  height: 60px;
+//  display: inline-block;
+//  object-fit: contain;
+//  background: url('../../assets/meow1-4.jpg') no-repeat center / 160px auto;
+//}
+
+
+.layout-content {
+  overflow-y: auto;
+  position: sticky;
+  display: block;
+
+  .logo {
+    position: absolute;
+    top: -95px;
+    left: -120px;
+    width: 340px;
+    height: 257px;
+    transform: scale(0.3);
+    display: inline-block;
+    object-fit: contain;
+    background: url('../../assets/meow1-4.jpg') no-repeat center / 160px auto;
+  }
+
+  .user-info {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    color: #cbe5db;
+    padding-right: 20px;
+    font-size: 16px;
+
+    :hover {
+      color: #fff;
+    }
+
+    // TODO
+    .active {
+      font-weight: bold;
+    }
+
+    .user-name {
+      color: #cbd5db;
+      margin-right: 15px;
+    }
+
+    .user-logout {
+      //display: inline-block;
+      cursor: pointer;
+    }
+  }
+
+  .navbar-nav {
+    display: inline-block;
+    margin-top: -8px;
+    margin-left: 90px;
+
+    .navbar-brand {
+      color: #fff;
+      font-size: 24px;
+      margin-right: 40px;
+      cursor: auto;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin: 0 5px;
+      color: #cbd5db;
+      font-size: 20px;
+
+        :hover {
+          color: #fff;
+        }
+    }
+  }
+}
+
+
+.ant-layout-header {
+  padding: 0 !important;
+}
