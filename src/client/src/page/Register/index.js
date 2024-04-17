@@ -22,8 +22,30 @@ const tailFormItemLayout = {
 const Register = () => {
 
     const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const onFinish = async (formValues) => {
+        console.log('Received values of form: ', formValues);
+
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formValues)
+            });
+
+            if (response.ok) {
+                // Registration successful, handle success (e.g., redirect user)
+            } else {
+                // Registration failed, handle error
+                const data = await response.json();
+                // Display error messages to the user
+            }
+        } catch (error) {
+            // Handle network errors or other unexpected errors
+            console.error('Error:', error);
+        }
+
     };
 
     // const categories = ["Laptop", "Phone", "Clothes", "Jewelry", "Sports", "other"]
@@ -73,6 +95,7 @@ const Register = () => {
                         }
                     )
             }
+
             fetchRegister()
         } catch (error) {
             console.log(error)
@@ -110,7 +133,7 @@ const Register = () => {
                                 message: 'Please enter your email',
                             }, ]}
                     >
-                        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+                        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="Please enter Your E-mail">
                             <Input style={{ width: '90%' }}/>
                         </AutoComplete>
                     </Form.Item>

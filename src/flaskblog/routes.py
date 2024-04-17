@@ -61,14 +61,27 @@ def about():
 
 @app.route("/register", methods=['POST'])
 def register():
-    form = RegistrationForm()
+    # Get registration data from request
+    data = request.json
+    print(data)
+    data['phone'] = int(data['phone'])
+    data['zipcode'] = int(data['zipcode'])
+    # form = RegistrationForm()
+    form = RegistrationForm(data=data)
+    # print("form: ", form.username.data)
+    print("form: ", form.username.data)
+    print("form: ", form.email.data)
+    print("form: ", form.phone.data)
+    print("form: ", form.address.data)
+    print("form: ", form.city.data)
     if form.validate_on_submit():
+        print("hi")
         user = User(username=form.username.data, email=form.email.data, phone=form.phone.data, address=form.address.data,
                     city=form.city.data, state=form.state.data, zipcode=form.zipcode.data)
         cur_session = find_db(form.username.data)
         cur_session.add(user)
         cur_session.commit()
-        flash('You have successfully become a Meowdom member today!', 'success')
+        # flash('You have successfully become a Meowdom member today!', 'success')
 #         return redirect(url_for('postNow'))
 #     return render_template('register.html', title='Register', form=form)
     return 'hi'

@@ -52,12 +52,6 @@ const Home = () => {
           ) : (
               // <p>Loading...</p>
 
-              // posts.map((post, index) => (
-              //     <div>
-              //       <p key={index}>{post.itemName}</p>
-              //
-              //     </div>
-              // ))
               <List
                   itemLayout="vertical"
                   size="large"
@@ -115,60 +109,3 @@ const Home = () => {
 }
 
 export default Home
-
-
-//
-// const items = [
-//     {
-//         key: '1',
-//         label: 'userCity',
-//         children: 'Cloud Database',
-//     },
-//     {
-//         key: '2',
-//         label: 'userState',
-//         children: 'Prepaid',
-//     },
-//     {
-//         key: '3',
-//         label: 'post_date',
-//         children: 'YES',
-//     },
-//     {
-//         key: '4',
-//         label: 'Order time',
-//         children: '2018-04-24 18:00:00',
-//     },
-//     {
-//         key: '5',
-//         label: 'Usage Time',
-//         children: '2019-04-24 18:00:00',
-//         span: 2,
-//     },
-//     {
-//         key: '6',
-//         label: 'Item Condition',
-//         children: <Badge status="processing" text={item.itemCondition} />,
-//         span: 3,
-//     },
-//     {
-//         key: '10',
-//         label: 'Config Info',
-//         children: (
-//             <>
-//                 Data disk type: MongoDB
-//                 <br />
-//                 Database version: 3.4
-//                 <br />
-//                 Package: dds.mongo.mid
-//                 <br />
-//                 Storage space: 10 GB
-//                 <br />
-//                 Replication factor: 3
-//                 <br />
-//                 Region: East China 1
-//                 <br />
-//             </>
-//         ),
-//     },
-// ];
