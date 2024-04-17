@@ -1,7 +1,7 @@
 import os
 import secrets
 # from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, abort
+from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 # from flaskblog import app, db, bcrypt, find_db, session0, session1
 from flaskblog import app, db, find_db, session0, session1
 from flaskblog.forms import RegistrationForm, PostForm
@@ -62,20 +62,11 @@ def about():
 @app.route("/register", methods=['POST'])
 def register():
     # Get registration data from request
-    data = request.json
-    print(data)
-    data['phone'] = int(data['phone'])
-    data['zipcode'] = int(data['zipcode'])
-    # form = RegistrationForm()
+    data = request.get_json()
+    print("data", data)
     form = RegistrationForm(data=data)
-    # print("form: ", form.username.data)
-    print("form: ", form.username.data)
-    print("form: ", form.email.data)
-    print("form: ", form.phone.data)
-    print("form: ", form.address.data)
-    print("form: ", form.city.data)
-    if form.validate_on_submit():
-        print("hi")
+    print("form", form.address)
+    if form.validate_username(form.username) and form.validate_email(form.email):
         user = User(username=form.username.data, email=form.email.data, phone=form.phone.data, address=form.address.data,
                     city=form.city.data, state=form.state.data, zipcode=form.zipcode.data)
         cur_session = find_db(form.username.data)
@@ -84,12 +75,19 @@ def register():
         # flash('You have successfully become a Meowdom member today!', 'success')
 #         return redirect(url_for('postNow'))
 #     return render_template('register.html', title='Register', form=form)
-    return 'hi'
+        return jsonify({"message": "Registration successful"}), 200
+    else:
+        return jsonify({"errors": form.errors}), 400
+
 
 @app.route("/postNow", methods=['POST'])
 def postNow():
-    form = PostForm()
-    if form.validate_on_submit():
+    data = request.get_json()
+    print("data", data)
+    form = PostForm(data=data)
+    print("form", form)
+    print("item name", form.name)
+    if form.validate_username(form.username):
         post = Post(username=form.username.data, title=form.title.data, content=form.content.data)
         item = Item(username=form.username.data, name=form.name.data, category=form.category.data,
                     original_price=form.original_price.data, selling_price=form.selling_price.data,
@@ -99,6 +97,8 @@ def postNow():
         cur_session.add(item)
         cur_session.commit()
         flash('You have successfully become a Meowdom member today!', 'success')
-        return redirect(url_for('home'))
-    return
+        # return redirect(url_for('home'))
+        return jsonify({"message": "Registration successful"}), 200
+    else:
+        return jsonify({"errors": form.errors}), 400
 #     render_template('postNow.html', title='Post', form=form)

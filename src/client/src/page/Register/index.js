@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import { useParams, useSearchParams, Link } from "react-router-dom"
+import { useParams, useSearchParams, Link, useNavigate } from "react-router-dom"
 import {
-    Button, Card, Input, Form, Space, Breadcrumb, AutoComplete, Select
+    Button, Card, Input, Form, Space, Breadcrumb, AutoComplete, Select, Alert
 } from "antd";
 const { Option } = Select;
 // import './index.scss'
@@ -20,11 +20,14 @@ const tailFormItemLayout = {
 };
 
 const Register = () => {
+    const navigate = useNavigate();
 
     const [form] = Form.useForm();
     const onFinish = async (formValues) => {
         console.log('Received values of form: ', formValues);
-
+        formValues.phone = parseInt(formValues.phone);
+        formValues.zipcode = parseInt(formValues.zipcode);
+        delete formValues.prefix;
         try {
             const response = await fetch('/register', {
                 method: 'POST',
@@ -35,7 +38,12 @@ const Register = () => {
             });
 
             if (response.ok) {
-                // Registration successful, handle success (e.g., redirect user)
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                    // Registration successful, handle success (e.g., redirect user)
+                    navigate('/');
+                }, 3000);
             } else {
                 // Registration failed, handle error
                 const data = await response.json();
@@ -52,6 +60,7 @@ const Register = () => {
 
     const [posts, setPosts] = useState([{}])
     const [categories, setCategories] = useState([])
+    const [showAlert, setShowAlert] = useState(false);
     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
 
@@ -76,7 +85,8 @@ const Register = () => {
                     width: 70,
                 }}
             >
-                <Option value="United States, Canada" key="1">+1</Option> <Option value="China" key="86">+86</Option> <Option value="India" key="91">+91</Option> <Option value="Japan" key="81">+81</Option> <Option value="Indonesia" key="62">+62</Option> <Option value="Brazil" key="55">+55</Option> <Option value="Pakistan" key="92">+92</Option> <Option value="Germany" key="49">+49</Option> <Option value="Italy" key="39">+39</Option> <Option value="Russia" key="7">+7</Option> <Option value="Iran" key="98">+98</Option> <Option value="Nigeria" key="234">+234</Option> <Option value="Mexico" key="1">+1</Option> <Option value="United Kingdom" key="44">+44</Option> <Option value="France" key="33">+33</Option> <Option value="Bangladesh" key="880">+880</Option> <Option value="Greece" key="30">+30</Option> <Option value="Vietnam" key="84">+84</Option> <Option value="Mexico" key="52">+52</Option> <Option value="Philippines" key="63">+63</Option>
+                <Option value="United States, Canada" key="1">+1</Option>
+                {/*  <Option value="China" key="86">+86</Option> <Option value="India" key="91">+91</Option> <Option value="Japan" key="81">+81</Option> <Option value="Indonesia" key="62">+62</Option> <Option value="Brazil" key="55">+55</Option> <Option value="Pakistan" key="92">+92</Option> <Option value="Germany" key="49">+49</Option> <Option value="Italy" key="39">+39</Option> <Option value="Russia" key="7">+7</Option> <Option value="Iran" key="98">+98</Option> <Option value="Nigeria" key="234">+234</Option> <Option value="Mexico" key="1">+1</Option> <Option value="United Kingdom" key="44">+44</Option> <Option value="France" key="33">+33</Option> <Option value="Bangladesh" key="880">+880</Option> <Option value="Greece" key="30">+30</Option> <Option value="Vietnam" key="84">+84</Option> <Option value="Mexico" key="52">+52</Option> <Option value="Philippines" key="63">+63</Option>*/}
             </Select>
         </Form.Item>
     );
@@ -118,6 +128,16 @@ const Register = () => {
                     }}
                     scrollToFirstError
                 >
+                    {showAlert && (
+                        <Alert
+                            message="Registration Successful!"
+                            type="success"
+                            closable
+                            onClose={() => setShowAlert(false)}
+                            style={{ marginBottom: '16px' }}
+                        />
+                    )}
+
                     <Form.Item
                         label="Username"
                         name='username'

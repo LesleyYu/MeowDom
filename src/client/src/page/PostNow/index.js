@@ -1,14 +1,57 @@
-import { useParams, useSearchParams, Link } from "react-router-dom"
-import {Breadcrumb, Button, Card, Input, Form, Space, InputNumber, Select} from "antd";
+import {useParams, useSearchParams, Link, useNavigate} from "react-router-dom"
+import {Breadcrumb, Button, Card, Input, Form, Space, InputNumber, Select, Alert} from "antd";
 import './index.scss'
 import {useEffect, useState} from "react";
 
 const { Option } = Select;
 
 const PostNow = () => {
+    const navigate = useNavigate();
 
     const [posts, setPosts] = useState([{}])
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('error')
     const [categories, setCategories] = useState([])
+
+    const [form] = Form.useForm();
+    const onFinish = async (formValues) => {
+        console.log('Received values of form: ', formValues);
+        delete formValues.suffix;
+        try {
+            const response = await fetch('/postNow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formValues)
+            });
+
+            if (response.ok) {
+                setAlertType("success")
+                setAlertMessage('Successfully posted!');
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                    // Registration successful, handle success (e.g., redirect user)
+                    navigate('/');
+                }, 3000);
+            } else {
+                // Registration failed, handle error
+                const data = await response.json();
+                // Display error messages to the user
+                // if (data.error === 'Username already taken') {
+                    setAlertMessage('Username or e-mail has already been taken. Please choose a different one.');
+                    setAlertType("error")
+                    setShowAlert(true);
+                // }
+            }
+        } catch (error) {
+            // Handle network errors or other unexpected errors
+            console.error('Error:', error);
+        }
+
+    };
 
     // const categories = ["Laptop", "Phone", "Clothes", "Jewelry", "Sports", "other"]
 
@@ -58,9 +101,9 @@ const PostNow = () => {
                 }}
             >
                 <Option value="USD">$</Option>
-                <Option value="CNY">¥</Option>
-                <Option value="GBP">£</Option>
-                <Option value="other">..</Option>
+                {/*<Option value="CNY">¥</Option>*/}
+                {/*<Option value="GBP">£</Option>*/}
+                {/*<Option value="other">..</Option>*/}
             </Select>
         </Form.Item>
     );
@@ -77,7 +120,20 @@ const PostNow = () => {
               }
               style={{width: '70%'}}
           >
-              <Form>
+              <Form
+                  form={form}
+                  name="PostNow"
+                  onFinish={onFinish}
+              >
+                  {showAlert && (
+                      <Alert
+                          message={alertMessage}
+                          type={alertType}
+                          closable
+                          onClose={() => setShowAlert(false)}
+                          style={{ marginBottom: '16px' }}
+                      />
+                  )}
                   <Form.Item
                       label="Username"
                       name='username'
@@ -87,7 +143,7 @@ const PostNow = () => {
                   </Form.Item>
                   <Form.Item
                       label="Item Name"
-                      name='itemname'
+                      name='name'
                       rules={[{required: true, message: "Please enter item name"}]}
                   >
                       <Input placeholder='Please enter item name' style={{width: '90%'}}/>
@@ -115,14 +171,14 @@ const PostNow = () => {
                   </Form.Item>
                   <Form.Item
                       label="Original Price"
-                      name='ori-price'
+                      name='original_price'
                       rules={[{required: true, message: "Please enter item's original price"}]}
                   >
                       <Input placeholder="Please enter item's original price" style={{width: '90%'}}/>
                   </Form.Item>
                   <Form.Item
                       label="Selling Price"
-                      name='selling-price'
+                      name='selling_price'
                       rules={[{required: true, message: "Please enter your ideal selling price"}]}
                   >
                       <InputNumber addonAfter={suffixSelector} placeholder='Please enter your ideal selling price' style={{width: '90%'}} />
