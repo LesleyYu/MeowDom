@@ -180,7 +180,7 @@ def update_item(username):
     action =int(input('Please select the content you want to update on item table: 1.name 2.category 3.original price 4.selling price 5.condition 6.brand'))
 
     if action in (3,4):
-        updated_value =int(input('Enter the updated value:'))
+        updated_value =float(input('Enter the updated value:'))
     else:
         updated_value =str(input('Enter the updated value:'))
 
