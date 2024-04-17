@@ -1,12 +1,12 @@
-import Login from '../page/Login'
 import PostNow from '../page/PostNow'
+import Login from '../page/Login'
+import Register from '../page/Register'
 import Layout from '../page/Layout'
 import Home from "../page/Home";
 import About from '../page/About'
 import NotFound from '../page/NotFound'
 
 import { createBrowserRouter, createHashRouter } from 'react-router-dom'
-import Register from "../page/Register";
 
 const router = createBrowserRouter([
   {
@@ -30,11 +30,11 @@ const router = createBrowserRouter([
         path: '/postNow/:id/:name',
         element: <PostNow />
       },
+      {
+        path: '/register',
+        element: <Register />
+      },
     ]
-  },
-  {
-    path: '/register',
-    element: <Register />
   },
   {
     path: '/login',

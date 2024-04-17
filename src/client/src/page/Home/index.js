@@ -1,20 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import { Breadcrumb, Card, Flex, Spin, Avatar, List, Space } from "antd";
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons"
+import { Breadcrumb, Card, Flex, Spin, Avatar, List, Space, Badge, Descriptions } from "antd";
+import { DollarOutlined, DollarTwoTone, CalendarOutlined } from "@ant-design/icons"
 import './index.scss'
 
-// const data = Array.from({
-//     length: 23,
-// }).map((_, i) => ({
-//     href: 'https://ant.design',
-//     title: `ant design part ${i}`,
-//     avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
-//     description:
-//         'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-//     content:
-//         'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-// }));
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -37,7 +26,7 @@ const Home = () => {
                     .then(
                         data => {
                             setPosts(data.posts);
-                            // console.log("data.posts: \n", data.posts);
+                            console.log("data.posts: \n", data.posts);
                         }
                     )
             }
@@ -49,8 +38,7 @@ const Home = () => {
 
     return (
     <div>
-      <Card
-          className="home-card"
+      <Card className="home-card"
           title={
             <Breadcrumb items={[
               {title: <Link to={'/'}>Home</Link>},
@@ -64,58 +52,123 @@ const Home = () => {
           ) : (
               // <p>Loading...</p>
 
-              posts.map((post, index) => (
-                  <div>
-                    <p key={index}>{post.itemName}</p>
-
-                  </div>
-              ))
-          ))}
-
-          <List
-              itemLayout="vertical"
-              size="large"
-              pagination={{
-                  onChange: (page) => {
-                      console.log(page);
-                  },
-                  pageSize: 5,
-              }}
-              dataSource={posts}
-              footer={
-                  <div>
-                      <b>ant design</b> footer part
-                  </div>
-              }
-              renderItem={(item) => (
-                  <List.Item
-                      key={item.title}
-                      actions={[
-                          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                      ]}
-                      extra={
-                          <img
-                              width={272}
-                              alt="logo"
-                              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              // posts.map((post, index) => (
+              //     <div>
+              //       <p key={index}>{post.itemName}</p>
+              //
+              //     </div>
+              // ))
+              <List
+                  itemLayout="vertical"
+                  size="large"
+                  pagination={{
+                      onChange: (page) => {
+                          console.log(page);
+                      },
+                      pageSize: 5,
+                  }}
+                  dataSource={posts}
+                  footer={<div></div>}
+                  renderItem={(item) => (
+                      <List.Item
+                          key={item.title}
+                          actions={[
+                              <IconText icon={DollarOutlined} text={`original price: ${item.original_price}`} className="list-item-original-price" />,
+                              <IconText icon={DollarTwoTone} text={`selling price: ${item.selling_price}`} key="list-item-selling-price" />,
+                              <IconText icon={CalendarOutlined} text={`${item.post_date}`} key="list-vertical-message" />,
+                          ]}
+                          extra={
+                              <img
+                                  height={172}
+                                  alt="logo"
+                                  src={require("../../assets/meow1.jpg")}
+                              />
+                          }
+                      >
+                          <List.Item.Meta
+                              avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${item.post_id}`} />}
+                              title={
+                                  <div>
+                                      <span className="user-name">{item.username}</span>
+                                      <a href={item.href}>{item.title}</a>
+                                  </div>
+                              }
+                              description={item.content}
                           />
-                      }
-                  >
-                      <List.Item.Meta
-                          // username={}
-                          avatar={<Avatar src={item.avatar} />}
-                          title={<a href={item.href}>{item.title}</a>}
-                          description={item.description}
-                      />
-                      {item.content}
-                  </List.Item>
-              )}
-          />
+                          {<Descriptions bordered size='small' items={[
+                              { key: '1', label: 'Posted In', children: `${item.userCity}, ${item.userState}` },
+                              { key: '2', label: "Item Name", children: item.itemName },
+                              { key: '3', label: "Brand", children: item.itemBrand},
+                              // { key: '4', label: "Brand", children: item.itemBrand},
+                              { key: '4', label: 'Condition',
+                                    children: <Badge status="processing" text={item.itemCondition} />,
+                                    span: 3,
+                              },
+                          ]} />}
+                      </List.Item>
+                  )}
+              />
+          ))}
       </Card>
     </div>
     )
 }
 
 export default Home
+
+
+//
+// const items = [
+//     {
+//         key: '1',
+//         label: 'userCity',
+//         children: 'Cloud Database',
+//     },
+//     {
+//         key: '2',
+//         label: 'userState',
+//         children: 'Prepaid',
+//     },
+//     {
+//         key: '3',
+//         label: 'post_date',
+//         children: 'YES',
+//     },
+//     {
+//         key: '4',
+//         label: 'Order time',
+//         children: '2018-04-24 18:00:00',
+//     },
+//     {
+//         key: '5',
+//         label: 'Usage Time',
+//         children: '2019-04-24 18:00:00',
+//         span: 2,
+//     },
+//     {
+//         key: '6',
+//         label: 'Item Condition',
+//         children: <Badge status="processing" text={item.itemCondition} />,
+//         span: 3,
+//     },
+//     {
+//         key: '10',
+//         label: 'Config Info',
+//         children: (
+//             <>
+//                 Data disk type: MongoDB
+//                 <br />
+//                 Database version: 3.4
+//                 <br />
+//                 Package: dds.mongo.mid
+//                 <br />
+//                 Storage space: 10 GB
+//                 <br />
+//                 Replication factor: 3
+//                 <br />
+//                 Region: East China 1
+//                 <br />
+//             </>
+//         ),
+//     },
+// ];

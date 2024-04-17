@@ -21,7 +21,7 @@ const MeowLayout = () => {
                   </div>
                   <div className="navbar-nav">
                       <Link className="nav-item nav-link" to="/postNow">Post Now</Link>
-                      <Link className="nav-item nav-link" to="/Register">Join Us(?)</Link>
+                      <Link className="nav-item nav-link" to="/Register">Join Us</Link>
                   </div>
 
                   {/*<div className="logo"/>*/}

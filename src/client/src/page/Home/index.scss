@@ -1,3 +1,15 @@
 .home-card {
   margin: 10px 0;
 }
+
+.user-name {
+  margin: 0 10px 0 2px;
+  border: solid 0.5px #428bca ;
+  border-radius: 10px;
+  padding: 0 6px;
+  box-shadow: 0 0 4px 1px #5f788a;
+}
+
+.list-item-original-price {
+  text-decoration: line-through;
+}

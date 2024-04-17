@@ -1,5 +1,5 @@
 const NotFound = () => {
-  return <div>页面跑到月球了</div>
+  return <div>Oops.. Something went wrong</div>
 }
 
 export default NotFound
