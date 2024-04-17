@@ -1,8 +1,9 @@
 import { useParams, useSearchParams, Link } from "react-router-dom"
-import {Breadcrumb, Button, Card, Input, Form, Space} from "antd";
+import {Breadcrumb, Button, Card, Input, Form, Space, InputNumber, Select} from "antd";
 import './index.scss'
 import {useEffect, useState} from "react";
 
+const { Option } = Select;
 
 const PostNow = () => {
 
@@ -48,6 +49,21 @@ const PostNow = () => {
     //     })
     //     setCategories(newCategories)
     // }
+
+    const suffixSelector = (
+        <Form.Item name="suffix" noStyle>
+            <Select
+                style={{
+                    width: 70,
+                }}
+            >
+                <Option value="USD">$</Option>
+                <Option value="CNY">¥</Option>
+                <Option value="GBP">£</Option>
+                <Option value="other">..</Option>
+            </Select>
+        </Form.Item>
+    );
 
   return (
       <div className="post-now">
@@ -95,7 +111,7 @@ const PostNow = () => {
                       name='brand'
                       rules={[{required: true, message: "Please enter item brand"}]}
                   >
-                      <Input placeholder='Please enter item name' style={{width: '90%'}}/>
+                      <Input placeholder='Please enter item brand' style={{width: '90%'}}/>
                   </Form.Item>
                   <Form.Item
                       label="Original Price"
@@ -109,7 +125,7 @@ const PostNow = () => {
                       name='selling-price'
                       rules={[{required: true, message: "Please enter your ideal selling price"}]}
                   >
-                      <Input placeholder='Please enter your ideal selling price' style={{width: '90%'}}/>
+                      <InputNumber addonAfter={suffixSelector} placeholder='Please enter your ideal selling price' style={{width: '90%'}} />
                   </Form.Item>
                   <Form.Item
                       label="Title"
@@ -123,7 +139,7 @@ const PostNow = () => {
                       name='content'
                       rules={[{required: true, message: "Please enter content"}]}
                   >
-                      <Input placeholder='Please enter content' style={{width: '90%'}}/>
+                      <Input.TextArea showCount placeholder='Please enter content' style={{width: '90%'}} maxLength={1000}/>
                   </Form.Item>
 
                   <Form.Item wrapperCol={{offset: 8}}>

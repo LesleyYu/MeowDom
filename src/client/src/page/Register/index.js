@@ -1,31 +1,79 @@
-import { useParams, useSearchParams, Link } from "react-router-dom"
-import {Breadcrumb, Button, Card, Input, Form, Space} from "antd";
-// import './index.scss'
 import {useEffect, useState} from "react";
+import { useParams, useSearchParams, Link } from "react-router-dom"
+import {
+    Button, Card, Input, Form, Space, Breadcrumb, AutoComplete, Select
+} from "antd";
+const { Option } = Select;
+// import './index.scss'
 
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 10,
+        },
+    },
+};
 
 const Register = () => {
 
-    const [posts, setPosts] = useState([{}])
-    const [categories, setCategories] = useState([])
+    const [form] = Form.useForm();
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+    };
 
     // const categories = ["Laptop", "Phone", "Clothes", "Jewelry", "Sports", "other"]
 
+    const [posts, setPosts] = useState([{}])
+    const [categories, setCategories] = useState([])
+    const [autoCompleteResult, setAutoCompleteResult] = useState([]);
+
+
+    const onWebsiteChange = (value) => {
+        if (!value) {
+            setAutoCompleteResult([]);
+        } else {
+            setAutoCompleteResult(['@gmail.com', '@outlook.com', '@yahoo.com', '@hotmail.com'].map((domain) => `${value}${domain}`));
+        }
+    };
+
+    const websiteOptions = autoCompleteResult.map((website) => ({
+        label: website,
+        value: website,
+    }));
+
+    // contact phone number prefix selector
+    const prefixSelector = (
+        <Form.Item name="prefix" noStyle>
+            <Select
+                style={{
+                    width: 70,
+                }}
+            >
+                <Option value="United States, Canada" key="1">+1</Option> <Option value="China" key="86">+86</Option> <Option value="India" key="91">+91</Option> <Option value="Japan" key="81">+81</Option> <Option value="Indonesia" key="62">+62</Option> <Option value="Brazil" key="55">+55</Option> <Option value="Pakistan" key="92">+92</Option> <Option value="Germany" key="49">+49</Option> <Option value="Italy" key="39">+39</Option> <Option value="Russia" key="7">+7</Option> <Option value="Iran" key="98">+98</Option> <Option value="Nigeria" key="234">+234</Option> <Option value="Mexico" key="1">+1</Option> <Option value="United Kingdom" key="44">+44</Option> <Option value="France" key="33">+33</Option> <Option value="Bangladesh" key="880">+880</Option> <Option value="Greece" key="30">+30</Option> <Option value="Vietnam" key="84">+84</Option> <Option value="Mexico" key="52">+52</Option> <Option value="Philippines" key="63">+63</Option>
+            </Select>
+        </Form.Item>
+    );
+
     useEffect(() => {
         try {
-            async function fetchPosts() {
-                fetch("/home")
+            async function fetchRegister() {
+                fetch("/register")
                     .then(
                         response => response.json()
                     )
                     .then(
                         data => {
-                            setPosts(data.posts);
+                            setPosts(data);
                             // console.log("data.posts: \n", data.posts);
                         }
                     )
             }
-            fetchPosts()
+            fetchRegister()
         } catch (error) {
             console.log(error)
         }
@@ -35,15 +83,18 @@ const Register = () => {
         <div className="post-now">
 
             <Card
-                title={
-                    <Breadcrumb items={[
-                        {title: <Link to={'/'}>Home</Link>},
-                        {title: 'Post Now'}
-                    ]}/>
-                }
+                title='Register'
                 style={{width: '70%'}}
             >
-                <Form>
+                <Form
+                    form={form}
+                    name="register"
+                    onFinish={onFinish}
+                    style={{
+                        maxWidth: 600,
+                    }}
+                    scrollToFirstError
+                >
                     <Form.Item
                         label="Username"
                         name='username'
@@ -52,72 +103,69 @@ const Register = () => {
                         <Input placeholder='Please enter your username' style={{width: '90%'}}/>
                     </Form.Item>
                     <Form.Item
-                        label="Item Name"
-                        name='itemname'
-                        rules={[{required: true, message: "Please enter item name"}]}
+                        name="email"
+                        label="E-mail"
+                        rules={[{
+                                required: true,
+                                message: 'Please enter your email',
+                            }, ]}
                     >
-                        <Input placeholder='Please enter item name' style={{width: '90%'}}/>
+                        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+                            <Input style={{ width: '90%' }}/>
+                        </AutoComplete>
                     </Form.Item>
                     <Form.Item
-                        label="Category"
-                        name='category'
-                        rules={[{required: true, message: "Please enter item's category"}]}
+                        name="phone"
+                        label="Phone Number"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your phone number',
+                            },
+                        ]}
                     >
-                        <Input placeholder="Please enter item's category" style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Condition"
-                        name='condition'
-                        rules={[{required: true, message: "Please enter item's condition"}]}
-                    >
-                        <Input placeholder="Please enter item's condition" style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Brand"
-                        name='brand'
-                        rules={[{required: true, message: "Please enter item brand"}]}
-                    >
-                        <Input placeholder='Please enter item name' style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Original Price"
-                        name='ori-price'
-                        rules={[{required: true, message: "Please enter item's original price"}]}
-                    >
-                        <Input placeholder="Please enter item's original price" style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Selling Price"
-                        name='selling-price'
-                        rules={[{required: true, message: "Please enter your ideal selling price"}]}
-                    >
-                        <Input placeholder='Please enter your ideal selling price' style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Title"
-                        name='title'
-                        rules={[{required: true, message: "Please enter title"}]}
-                    >
-                        <Input placeholder='Please enter title' style={{width: '90%'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Content"
-                        name='content'
-                        rules={[{required: true, message: "Please enter content"}]}
-                    >
-                        <Input placeholder='Please enter content' style={{width: '90%'}}/>
+                        <Input addonBefore={prefixSelector}
+                               placeholder="Please enter your contact number"
+                               style={{ width: '90%' }}
+                        />
                     </Form.Item>
 
-                    <Form.Item wrapperCol={{offset: 8}}>
+                    <Form.Item
+                        label="Address"
+                        name='address'
+                        rules={[{required: true, message: "Please enter your address"}]}
+                    >
+                        <Input.TextArea placeholder='Please enter your address' style={{width: '90%'}}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="City"
+                        name='city'
+                        rules={[{required: true, message: "Please enter your current city"}]}
+                    >
+                        <Input placeholder='Please enter your city' style={{width: '90%'}}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="State"
+                        name='state'
+                        rules={[{required: true, message: "Please enter your state"}]}
+                    >
+                        <Input placeholder='Please enter your state' style={{width: '90%'}}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Zipcode"
+                        name='zipcode'
+                        rules={[{required: true, message: "Please enter zipcode"}]}
+                    >
+                        <Input placeholder='Please enter zipcode' style={{width: '90%'}}/>
+                    </Form.Item>
+                    <Form.Item  {...tailFormItemLayout}>
                         <Space>
                             <Button size="large" type="primary" htmlType="submit">
-                                Post My Item
+                                Sign Up
                             </Button>
                         </Space>
                     </Form.Item>
                 </Form>
-
-
             </Card>
 
             <div className="border-top pt-3">
@@ -132,347 +180,4 @@ const Register = () => {
 export default Register
 
 
-//
-//
-// const {
-//     AutoComplete,
-//     Button,
-//     Cascader,
-//     Checkbox,
-//     Col,
-//     Form,
-//     Input,
-//     InputNumber,
-//     Row,
-//     Select,
-// } = antd;
-// const { Option } = Select;
-// const residences = [
-//     {
-//         value: 'zhejiang',
-//         label: 'Zhejiang',
-//         children: [
-//             {
-//                 value: 'hangzhou',
-//                 label: 'Hangzhou',
-//                 children: [
-//                     {
-//                         value: 'xihu',
-//                         label: 'West Lake',
-//                     },
-//                 ],
-//             },
-//         ],
-//     },
-//     {
-//         value: 'jiangsu',
-//         label: 'Jiangsu',
-//         children: [
-//             {
-//                 value: 'nanjing',
-//                 label: 'Nanjing',
-//                 children: [
-//                     {
-//                         value: 'zhonghuamen',
-//                         label: 'Zhong Hua Men',
-//                     },
-//                 ],
-//             },
-//         ],
-//     },
-// ];
-// const formItemLayout = {
-//     labelCol: {
-//         xs: {
-//             span: 24,
-//         },
-//         sm: {
-//             span: 8,
-//         },
-//     },
-//     wrapperCol: {
-//         xs: {
-//             span: 24,
-//         },
-//         sm: {
-//             span: 16,
-//         },
-//     },
-// };
-// const tailFormItemLayout = {
-//     wrapperCol: {
-//         xs: {
-//             span: 24,
-//             offset: 0,
-//         },
-//         sm: {
-//             span: 16,
-//             offset: 8,
-//         },
-//     },
-// };
-// const App = () => {
-//     const [form] = Form.useForm();
-//     const onFinish = (values) => {
-//         console.log('Received values of form: ', values);
-//     };
-//     const prefixSelector = (
-//         <Form.Item name="prefix" noStyle>
-//             <Select
-//                 style={{
-//                     width: 70,
-//                 }}
-//             >
-//                 <Option value="86">+86</Option>
-//                 <Option value="87">+87</Option>
-//             </Select>
-//         </Form.Item>
-//     );
-//     const suffixSelector = (
-//         <Form.Item name="suffix" noStyle>
-//             <Select
-//                 style={{
-//                     width: 70,
-//                 }}
-//             >
-//                 <Option value="USD">$</Option>
-//                 <Option value="CNY">¥</Option>
-//             </Select>
-//         </Form.Item>
-//     );
-//     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-//     const onWebsiteChange = (value) => {
-//         if (!value) {
-//             setAutoCompleteResult([]);
-//         } else {
-//             setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-//         }
-//     };
-//     const websiteOptions = autoCompleteResult.map((website) => ({
-//         label: website,
-//         value: website,
-//     }));
-//     return (
-//         <Form
-//             {...formItemLayout}
-//             form={form}
-//             name="register"
-//             onFinish={onFinish}
-//             initialValues={{
-//                 residence: ['zhejiang', 'hangzhou', 'xihu'],
-//                 prefix: '86',
-//             }}
-//             style={{
-//                 maxWidth: 600,
-//             }}
-//             scrollToFirstError
-//         >
-//             <Form.Item
-//                 name="email"
-//                 label="E-mail"
-//                 rules={[
-//                     {
-//                         type: 'email',
-//                         message: 'The input is not valid E-mail!',
-//                     },
-//                     {
-//                         required: true,
-//                         message: 'Please input your E-mail!',
-//                     },
-//                 ]}
-//             >
-//                 <Input />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="password"
-//                 label="Password"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input your password!',
-//                     },
-//                 ]}
-//                 hasFeedback
-//             >
-//                 <Input.Password />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="confirm"
-//                 label="Confirm Password"
-//                 dependencies={['password']}
-//                 hasFeedback
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please confirm your password!',
-//                     },
-//                     ({ getFieldValue }) => ({
-//                         validator(_, value) {
-//                             if (!value || getFieldValue('password') === value) {
-//                                 return Promise.resolve();
-//                             }
-//                             return Promise.reject(new Error('The new password that you entered do not match!'));
-//                         },
-//                     }),
-//                 ]}
-//             >
-//                 <Input.Password />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="nickname"
-//                 label="Nickname"
-//                 tooltip="What do you want others to call you?"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input your nickname!',
-//                         whitespace: true,
-//                     },
-//                 ]}
-//             >
-//                 <Input />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="residence"
-//                 label="Habitual Residence"
-//                 rules={[
-//                     {
-//                         type: 'array',
-//                         required: true,
-//                         message: 'Please select your habitual residence!',
-//                     },
-//                 ]}
-//             >
-//                 <Cascader options={residences} />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="phone"
-//                 label="Phone Number"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input your phone number!',
-//                     },
-//                 ]}
-//             >
-//                 <Input
-//                     addonBefore={prefixSelector}
-//                     style={{
-//                         width: '100%',
-//                     }}
-//                 />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="donation"
-//                 label="Donation"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input donation amount!',
-//                     },
-//                 ]}
-//             >
-//                 <InputNumber
-//                     addonAfter={suffixSelector}
-//                     style={{
-//                         width: '100%',
-//                     }}
-//                 />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="website"
-//                 label="Website"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input website!',
-//                     },
-//                 ]}
-//             >
-//                 <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-//                     <Input />
-//                 </AutoComplete>
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="intro"
-//                 label="Intro"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please input Intro',
-//                     },
-//                 ]}
-//             >
-//                 <Input.TextArea showCount maxLength={100} />
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="gender"
-//                 label="Gender"
-//                 rules={[
-//                     {
-//                         required: true,
-//                         message: 'Please select gender!',
-//                     },
-//                 ]}
-//             >
-//                 <Select placeholder="select your gender">
-//                     <Option value="male">Male</Option>
-//                     <Option value="female">Female</Option>
-//                     <Option value="other">Other</Option>
-//                 </Select>
-//             </Form.Item>
-//
-//             <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-//                 <Row gutter={8}>
-//                     <Col span={12}>
-//                         <Form.Item
-//                             name="captcha"
-//                             noStyle
-//                             rules={[
-//                                 {
-//                                     required: true,
-//                                     message: 'Please input the captcha you got!',
-//                                 },
-//                             ]}
-//                         >
-//                             <Input />
-//                         </Form.Item>
-//                     </Col>
-//                     <Col span={12}>
-//                         <Button>Get captcha</Button>
-//                     </Col>
-//                 </Row>
-//             </Form.Item>
-//
-//             <Form.Item
-//                 name="agreement"
-//                 valuePropName="checked"
-//                 rules={[
-//                     {
-//                         validator: (_, value) =>
-//                             value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-//                     },
-//                 ]}
-//                 {...tailFormItemLayout}
-//             >
-//                 <Checkbox>
-//                     I have read the <a href="">agreement</a>
-//                 </Checkbox>
-//             </Form.Item>
-//             <Form.Item {...tailFormItemLayout}>
-//                 <Button type="primary" htmlType="submit">
-//                     Register
-//                 </Button>
-//             </Form.Item>
-//         </Form>
-//     );
-// };
+

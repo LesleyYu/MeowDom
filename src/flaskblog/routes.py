@@ -59,7 +59,7 @@ def about():
     return render_template('about.html', title='About')
 
 
-@app.route("/register", methods=['GET', 'POST'])
+@app.route("/register", methods=['POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -69,11 +69,11 @@ def register():
         cur_session.add(user)
         cur_session.commit()
         flash('You have successfully become a Meowdom member today!', 'success')
-        return redirect(url_for('postNow'))
-    return render_template('register.html', title='Register', form=form)
+#         return redirect(url_for('postNow'))
+#     return render_template('register.html', title='Register', form=form)
+    return 'hi'
 
-
-@app.route("/postNow", methods=['GET', 'POST'])
+@app.route("/postNow", methods=['POST'])
 def postNow():
     form = PostForm()
     if form.validate_on_submit():
