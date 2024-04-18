@@ -56,9 +56,7 @@ const Home = () => {
                   itemLayout="vertical"
                   size="large"
                   pagination={{
-                      onChange: (page) => {
-                          console.log(page);
-                      },
+                      // onChange: (page) => { console.log(page); },
                       pageSize: 5,
                   }}
                   dataSource={posts}
@@ -98,6 +96,8 @@ const Home = () => {
                                     children: <Badge status="processing" text={item.itemCondition} />,
                                     span: 3,
                               },
+                              { key: '5', label: 'E-mail', children: item.userEmail },
+                              { key: '6', label: 'Phone', children: `+1 ${item.userPhone}` },
                           ]} />}
                       </List.Item>
                   )}
