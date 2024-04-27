@@ -59,7 +59,7 @@ const Register = () => {
     // const categories = ["Laptop", "Phone", "Clothes", "Jewelry", "Sports", "other"]
 
     const [posts, setPosts] = useState([{}])
-    const [categories, setCategories] = useState([])
+    // const [categories, setCategories] = useState([])
     const [showAlert, setShowAlert] = useState(false);
     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 

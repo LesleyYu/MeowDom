@@ -14,3 +14,22 @@ Alternatively after we stated `if __name__ == '__main__':` we can use `python` t
 * A hard refresh: command + shift + R *
 
 
+
+
+
+
+
+
+
+#### How to run
+
+In terminal of flaskblog directory,  execute the following commands:
+
+```sh
+>>> python3 -m venv .venv
+>>> source venv/bin/activate
+>>> pip install Flask
+>>> npm start
+```
+
+#### 

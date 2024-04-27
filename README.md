@@ -16,18 +16,16 @@
 
 #### Back-end
 
-In terminal of flaskblog directory,  execute the following commands:
+In terminal of `/src` directory,  execute the following commands:
 
 ```sh
->>> python3 -m venv .venv
->>> source venv/bin/activate
->>> pip install Flask
->>> npm start
+>>> pip install -r requirements.txt
+>>> python run.py
 ```
 
 #### Front-end
 
-in the terminal of `src/client/src`, execute the following commands:
+in the terminal of `/src/client/src`, execute the following commands:
 
 ```sh
 >>> npm install 
