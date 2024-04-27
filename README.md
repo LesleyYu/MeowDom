@@ -36,9 +36,56 @@ in the terminal of `/src/client/src`, execute the following commands:
 ## API Documentation
 
 
+
 ## Dependencies
 
-**Development Dependencies**
+### **Development Dependencies**
+
+#### Back-end
+
+```
+blinker==1.8.0
+click==8.1.7
+Flask==3.0.3
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.1.1
+Flask-WTF==1.2.1
+greenlet==3.0.3
+importlib_metadata==7.1.0
+itsdangerous==2.2.0
+Jinja2==3.1.3
+MarkupSafe==2.1.5
+SQLAlchemy==2.0.29
+typing_extensions==4.11.0
+Werkzeug==3.0.2
+WTForms==3.1.2
+zipp==3.18.1
+```
+
+They will be automatically installed when executing `pip install -r requirements.txt` in previous steps in **Usage / Installation and run / Back-end**
+
+#### Front-end
+
+```json
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.x.x",
+    "antd": "^5.16.2",
+    "bootstrap": "^5.3.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.2",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "sass": "^1.75.0",
+    "scss": "^0.2.4",
+    "web-vitals": "^2.1.4"
+  }
+```
+
+They will be automatically installed when executing `npm install`  in previous steps in **Usage / Installation and run / Front-end**.
 
 
 
