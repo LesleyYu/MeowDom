@@ -1,8 +1,10 @@
-# MeowDom: A Resource Exchange Platform <img src="/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/meow1-3.jpg" alt="meow1-3" style="zoom:10%;" />
+# MeowDom: A Resource Exchange Platform <img src="./pics/meow1-3.jpg" alt="meow1-3" style="zoom:10%;" />
 
 
 
 ## Key Features
+
+#### End-user app:
 
 **JoinUs**: Register for a new account
 
@@ -10,7 +12,11 @@
 
 **View**: view the list of items being posted on the website
 
-## Usage
+After following steps in `How to Use` and successfully start the app, users can **register** for a new account, **post** the items, and **view** the list of items being posted on the website in home page, 
+
+
+
+## How to Use
 
 ### Installation and run
 
@@ -33,7 +39,10 @@ in the terminal of `/src/client/src`, execute the following commands:
 ```
 
 
+
 ## API Documentation
+
+
 
 
 
@@ -89,7 +98,7 @@ They will be automatically installed when executing `npm install`  in previous s
 
 
 
-## Proposal
+## Final Report
 ![proposal1](./pics/Proposal-0001.jpg)
 
 ![proposal2](./pics/Proposal-0002.jpg)
