@@ -152,15 +152,16 @@ def update_user(username):
     session = find_db(username)
     connection = connect(session)
     #choose update content
-    action = int(input('Please select the content you want to update on user table: 1.phone 2.address 3.city 4.state 5.zipcode'))
+    print("Which part do you want to update? 1.phone 2.address 3.city 4.state 5.zipcode")
+    action = int(input('Please enter a number: '))
 
     #enter updated value
     if action in (1, 5):
-        updated_value =int(input('Enter the updated value:'))
+        updated_value = int(input('Enter the updated value: '))
     else:
-        updated_value =str(input('Enter the updated value:'))
+        updated_value = str(input('Enter the updated value: '))
 
-    action_dic = {1:"phone",2:"address",3:"city",4:"state",5: "zipcode"}
+    action_dic = {1: "phone", 2: "address", 3: "city", 4: "state", 5: "zipcode"}
     try:
         session.execute(f'update user set {action_dic[action]} = ? where username = ?', (updated_value,username,))
         if session.rowcount > 0:
@@ -177,17 +178,19 @@ def update_item(username):
     session = find_db(username)
     connection = connect(session)
      #choose update content
-    action =int(input('Please select the content you want to update on item table: 1.name 2.category 3.original price 4.selling price 5.condition 6.brand'))
+    print("Which content do you want to update: 1.name 2.category 3.original price "
+          "4.selling price 5.condition 6.brand'")
+    action =int(input("Please enter a number: "))
 
-    if action in (3,4):
-        updated_value =float(input('Enter the updated value:'))
+    if action in (3, 4):
+        updated_value = float(input('Enter the updated value: '))
     else:
-        updated_value =str(input('Enter the updated value:'))
+        updated_value = str(input('Enter the updated value: '))
 
-    action_dic = {1:"name", 2:"category",3:"original_price",4:"selling_price",5:"condition",6:"brand"}
+    action_dic = {1: "name", 2: "category", 3: "original_price", 4: "selling_price", 5: "condition", 6: "brand"}
 
     try:
-        session.execute(f'update item set {action_dic[action]} = ? where username = ?', (updated_value,username,))
+        session.execute(f'update item set {action_dic[action]} = ? where username = ?', (updated_value, username,))
         if session.rowcount > 0:
                 connection.commit()
                 print('Updated successfully')
@@ -204,12 +207,13 @@ def update_post(username):
     connection = connect(session)
      #choose update content
     #print('Please select the content you want to update on item table: 1.title 2.content')
-    action =int(input('Please select the content you want to update on item table: 1.title 2.content'))
+    print("Which content do you want to update? 1.title 2.content")
+    action =int(input('Please enter a number: '))
 
     #enter updated value
     #print('Enter the updated value:')
 
-    updated_value = str(input('Enter the updated value:'))
+    updated_value = str(input('Enter the updated value: '))
   
     action_dic = { 1:"title",2:"content"}
 
@@ -265,39 +269,73 @@ def view():
 
 
 def insert():
-    print("Which table do you want to insert into? 1.user, 2. post, 3.item")
-    insert_table = int(input("Please enter a number: "))
-    if insert_table not in [1, 2, 3, 4]:
-        print("Please enter a valid number: ")
-    elif insert_table == 1:
-        print("Please enter the username: ")
+    while True:
+        print("Which table do you want to insert into? 1.user, 2. post, 3.item, 4.quit")
+        insert_table = int(input("Please enter a number or quit: "))
+        while insert_table not in [1, 2, 3, 4]:
+            insert_table = int(input("Please enter a valid number (1.user, 2. post, 3.item, 4.quit): "))
+        if insert_table == 1:
+            insert_user()
+        elif insert_table == 2:
+            username = str(input("Please enter the username that you want to insert the post for: "))
+            if not check_username(username):
+                print("Please create an account for this user first!")
+            else:
+                insert_post(username)
+        elif insert_table == 3:
+            username = str(input("Please enter the username that we want to insert the item for: "))
+            if not check_username(username):
+                print("Please create an account for this user first!")
+            else:
+                insert_item(username)
+        else:
+            break
     pass
 
 
 def delete():
-    cur_user = input("Please enter the username that you want to delete for: ")
-    cur_session = find_db(cur_user)
-    print("Which table do you want to delete from?")
+    cur_user = str(input("Please enter the username that you want to delete for: "))
+    while not check_username(cur_user):
+        cur_user = str(input("We cannot find this user in the database. Please find another one: "))
+    while True:
+        print("Which cammand do you wan to execute?")
+        print("1. Remove the user and all of their infomation from the database.")
+        print("2. Delete a post for this user.")
+        print("3. Delete an item for this user.")
+        print("4. Quit")
+        cur_action = int(input("Please enter the number of execution: "))
+        while cur_action not in [1, 2, 3, 4]:
+            cur_action = int(input("Please enter a valid number of execution: "))
+        if cur_action == 1:
+            delete_user(cur_user)
+        elif cur_action == 2:
+            delete_post(cur_user)
+        elif cur_action == 3:
+            delete_item(cur_user)
+        else:
+            break
     pass
 
 
 def update():
-    while True:
-        cur_user = str(input("Please enter the username that you want to update for: "))
-        cur_session = find_db(cur_user)
-        while check_username(cur_user):
-            action = int(input("Please select which table you want to update? 1. user 2. post, 3. item,4.Quit"))
-            username = cur_user
+    cur_user = str(input("Please enter the username that you want to update for: "))
+    cur_session = find_db(cur_user)
+    while not check_username(cur_user):
+        cur_user = str(input("We cannot find this user in the database. Please find another one: "))
+    print("Which table you want to update? 1. user 2. post, 3. item, 4.Quit")
 
-            if action == 1:
-                update_user(username)
-            elif action == 2:
-                update_post(username)
-            elif action == 3:
-                update_item(username)
-            else:
-                #print('No table found, please go back to check table name again.')
-                break
+    while True:
+        cur_action = int(input("Please enter the table you want to update(1. user 2. post, 3. item, 4.Quit): "))
+        while cur_action not in [1, 2, 3, 4]:
+            cur_action = int(input("Please enter a valid number for the table: "))
+        if cur_action == 1:
+            update_user(cur_user)
+        elif cur_action == 2:
+            update_post(cur_user)
+        elif cur_action == 3:
+            update_item(cur_user)
+        else:
+            break
  
 
 
@@ -305,7 +343,7 @@ print("Welcome to Meowdom database management system! ")
 while True:
     print("Which command do you want to execute? 1. View 2. Insert, 3. Delete, 4. Update, 5.Quit")
     action = int(input("Please enter the number of the command that you want to execute: "))
-    if int(action) not in [1, 2, 3, 4]:
+    if int(action) not in [1, 2, 3, 4, 5]:
         print("Please enter a valid number: ")
     elif action == 1:
         view()
@@ -315,5 +353,5 @@ while True:
         delete()
     elif action == 4:
         update()
-    else:  # action == 4
+    else:  # action == 5
         break
