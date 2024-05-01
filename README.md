@@ -97,6 +97,45 @@ They will be automatically installed when executing `pip install -r requirements
 They will be automatically installed when executing `npm install`  in previous steps in **Usage / Installation and run / Front-end**.
 
 
+## File Structure
+```
+Meowdom
+│   README.md
+│   Meodom-Demo.pdf: google slides for presentation 
+│
+└───src
+│   │   run.py: a file to run the backend code
+│   │   requirements.txt
+│   │   DB0.db: SQL database 1 
+│   │   DB1.db: SQL: database 2 
+│   │   dbmanager.py: an APP for manager to insert, update, and delete data 
+│   │
+│   └───client (frontend) 
+│   │   │   ...
+│   │   │   
+│   │   │   ...
+│   │   
+│   └───flaskblog (backend) 
+│       │   __init__.py: initialize the APP, create db engines, and define hash function
+│       │   models.py: build three classes: user, item, and post 
+│       │   forms.py: build two flaskforms(registration and post) to correct the data type from web and check validation 
+│       │   routes.py: construct four web pages: home, about, JoinUs(register), and PostNow(post) 
+│ 
+│ 
+└───instance 
+│   │   site.db (default database created by flask APP, empty) 
+│   
+└───pic (pictures for proposal and web design 
+    │   meow1-3.jpg
+    │   meow1-4.jpg
+    │   meow1-6.jpg
+    │   Proposal-0001.jpg
+    │   Proposal-0002.jpg
+    │   Proposal-0003.jpg
+    
+```
+
+
 
 ## Final Report
 ![proposal1](./pics/Proposal-0001.jpg)
