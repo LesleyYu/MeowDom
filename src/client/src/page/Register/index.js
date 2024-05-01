@@ -213,7 +213,7 @@ const Register = () => {
 
             <div className="border-top pt-3">
                 <small className="text-muted">
-                    Sell your Product Today!
+                    Be a Meowdom member today!
                 </small>
             </div>
         </div>
