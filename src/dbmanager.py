@@ -354,8 +354,4 @@ while True:
     elif action == 4:
         update()
     else:  # action == 5
-<<<<<<< HEAD
         break
-=======
-        break
->>>>>>> ff2ce37876abda990e416dd2463322c04832fa60
