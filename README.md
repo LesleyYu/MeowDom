@@ -95,7 +95,9 @@ They will be automatically installed when executing `npm install`  in previous s
 ```
 Meowdom
 │   README.md
-│   Meodom-Demo.pdf: slides for presentation 
+│   Meowdom-Demo.pdf: slides for presentation 
+│   Meowdom Design Work Flow.pdf: flow diagram for our project
+│   DSCI551-FinalReport.pdf: final report
 │
 └───src
 │   │   run.py: a file to run the backend code
