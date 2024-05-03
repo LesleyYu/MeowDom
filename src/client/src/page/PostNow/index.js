@@ -38,10 +38,10 @@ const PostNow = () => {
                 }, 3000);
             } else {
                 // Registration failed, handle error
-                const data = await response.json();
+                // const data = await response.json();  // cause error
                 // Display error messages to the user
                 // if (data.error === 'Username already taken') {
-                    setAlertMessage('Username or e-mail has already been taken. Please choose a different one.');
+                    setAlertMessage('Not a Moewdomer? Please be a member with us first!');
                     setAlertType("error")
                     setShowAlert(true);
                 // }
@@ -174,7 +174,7 @@ const PostNow = () => {
                       name='original_price'
                       rules={[{required: true, message: "Please enter item's original price"}]}
                   >
-                      <Input placeholder="Please enter item's original price" style={{width: '90%'}}/>
+                      <InputNumber addonAfter={suffixSelector} placeholder="Please enter item's original price" style={{width: '90%'}} />
                   </Form.Item>
                   <Form.Item
                       label="Selling Price"

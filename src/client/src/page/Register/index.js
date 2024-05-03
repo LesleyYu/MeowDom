@@ -22,6 +22,9 @@ const tailFormItemLayout = {
 const Register = () => {
     const navigate = useNavigate();
 
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('error')
+
     const [form] = Form.useForm();
     const onFinish = async (formValues) => {
         console.log('Received values of form: ', formValues);
@@ -38,6 +41,8 @@ const Register = () => {
             });
 
             if (response.ok) {
+                setAlertType('success');
+                setAlertMessage('Registion Successful!')
                 setShowAlert(true);
                 setTimeout(() => {
                     setShowAlert(false);
@@ -46,8 +51,13 @@ const Register = () => {
                 }, 3000);
             } else {
                 // Registration failed, handle error
-                const data = await response.json();
+                // const data = await response.json();  // cause error
                 // Display error messages to the user
+                // if (data.error === 'Username already taken') {
+                    setAlertMessage('Username or e-mail has already been taken. Please choose a different one.');
+                    setAlertType("error")
+                    setShowAlert(true);
+                // }
             }
         } catch (error) {
             // Handle network errors or other unexpected errors
@@ -130,8 +140,8 @@ const Register = () => {
                 >
                     {showAlert && (
                         <Alert
-                            message="Registration Successful!"
-                            type="success"
+                            message={alertMessage}
+                            type={alertType}
                             closable
                             onClose={() => setShowAlert(false)}
                             style={{ marginBottom: '16px' }}

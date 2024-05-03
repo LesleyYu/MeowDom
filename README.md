@@ -1,4 +1,4 @@
-# MeowDom: A Resource Exchange Platform <img src="./pics/meow1-3.jpg" alt="meow1-3" style="zoom:10%;" />
+# MeowDom: A Resource Exchange Platform <img src="./pics/meow1-3.jpg" alt="meow1-3" width="50" />
 
 
 
@@ -116,7 +116,7 @@ Meowdom
 │   │   │		
 │   │   └───src: source files for the react project
 │   │   │   │   
-│   │   │   │		assets: pictures can be used in the website
+│   │   │   │		assets: pictures used in the website
 │   │   │   │
 │   │   │   └───pages: components of the SPA app
 │   │   │   │		│		About: stores js and scss files for About page
