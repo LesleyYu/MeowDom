@@ -159,33 +159,33 @@ Meowdom
 
 ## Final Report
 
-![FinalReports-0](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-0.jpg)
+![FinalReports-0](./pics/FinalReports-0.jpg)
 
-![FinalReports-1](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-1.jpg)
+![FinalReports-1](./pics/FinalReports-1.jpg)
 
-![FinalReports-2](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-2.jpg)
+![FinalReports-2](./pics/FinalReports-2.jpg)
 
-![FinalReports-3](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-3.jpg)
+![FinalReports-3](./pics/FinalReports-3.jpg)
 
-![FinalReports-4](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-4.jpg)
+![FinalReports-4](./pics/FinalReports-4.jpg)
 
-![FinalReports-5](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-5.jpg)
+![FinalReports-5](./pics/FinalReports-5.jpg)
 
-![FinalReports-6](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-6.jpg)
+![FinalReports-6](./pics/FinalReports-6.jpg)
 
-![FinalReports-7](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-7.jpg)
+![FinalReports-7](./pics/FinalReports-7.jpg)
 
-![FinalReports-8](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-8.jpg)
+![FinalReports-8](./pics/FinalReports-8.jpg)
 
-![FinalReports-9](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-9.jpg)
+![FinalReports-9](./pics/FinalReports-9.jpg)
 
-![FinalReports-10](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-10.jpg)
+![FinalReports-10](./pics/FinalReports-10.jpg)
 
-![FinalReports-11](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-11.jpg)
+![FinalReports-11](./pics/FinalReports-11.jpg)
 
-![FinalReports-12](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-12.jpg)
+![FinalReports-12](./pics/FinalReports-12.jpg)
 
-![FinalReports-13](/Users/lesley/Documents/USC/DSCI551/Project/Code_git/MeowDom/pics/FinalReports-13.jpg)
+![FinalReports-13](./pics/FinalReports-13.jpg)
 
 
 
