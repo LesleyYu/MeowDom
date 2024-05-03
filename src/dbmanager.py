@@ -152,6 +152,11 @@ def update_user(username):
     session = find_db(username)
     connection = connect(session)
     #choose update content
+    print("Please review the current user information: ")
+    session.execute("Select * from user where username = ?", (username,))
+    rows = session.fetchall()
+    for row in rows:
+        print(row)
     print("Which part do you want to update? 1.phone 2.address 3.city 4.state 5.zipcode")
     action = int(input('Please enter a number: '))
 
@@ -177,10 +182,16 @@ def update_user(username):
 def update_item(username):
     session = find_db(username)
     connection = connect(session)
-     #choose update content
+    print(f"Please review the items of the user {username} and find the id of the item that you want to update.")
+    session.execute("Select * from item where username = ?", (username,))
+    rows = session.fetchall()
+    for row in rows:
+        print(row)
+
+    item_id = int(input("Please enter the item_id that you want to update: "))
     print("Which content do you want to update: 1.name 2.category 3.original price "
           "4.selling price 5.condition 6.brand'")
-    action =int(input("Please enter a number: "))
+    action = int(input("Please enter a number: "))
 
     if action in (3, 4):
         updated_value = float(input('Enter the updated value: '))
@@ -190,7 +201,8 @@ def update_item(username):
     action_dic = {1: "name", 2: "category", 3: "original_price", 4: "selling_price", 5: "condition", 6: "brand"}
 
     try:
-        session.execute(f'update item set {action_dic[action]} = ? where username = ?', (updated_value, username,))
+        session.execute(f'update item set {action_dic[action]} = ? where username = ? and item_id = ?',
+                        (updated_value, username, item_id))
         if session.rowcount > 0:
                 connection.commit()
                 print('Updated successfully')
@@ -205,8 +217,14 @@ def update_item(username):
 def update_post(username):
     session = find_db(username)
     connection = connect(session)
-     #choose update content
-    #print('Please select the content you want to update on item table: 1.title 2.content')
+    print(f"Please review the posts of the user {username} and find the id of the post that you want to update.")
+    session.execute("Select * from post where username = ?", (username,))
+    rows = session.fetchall()
+    for row in rows:
+        print(row)
+
+    post_id = int(input("Please enter the post_id that you want to update: "))
+
     print("Which content do you want to update? 1.title 2.content")
     action =int(input('Please enter a number: '))
 
@@ -218,7 +236,8 @@ def update_post(username):
     action_dic = { 1:"title",2:"content"}
 
     try:
-        session.execute(f'update post set {action_dic[action]} = ? where username = ?', (updated_value,username,))
+        session.execute(f'update post set {action_dic[action]} = ? where username = ? and post_id = ?',
+                        (updated_value, username, post_id))
         if session.rowcount > 0:
                 connection.commit()
                 print('Updated successfully')
