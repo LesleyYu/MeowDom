@@ -17,3 +17,6 @@ src/flaskblog/__pycache__/
 # local files not needed
 client/src/App.js
 client/package-lock.json
+
+
+**/.ipynb_checkpoints
